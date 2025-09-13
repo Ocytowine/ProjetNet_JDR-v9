@@ -1,0 +1,53 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model EventLog {
+  id        String   @id @default(cuid())
+  gameId    String
+  type      String
+  payload   String   // JSON sérialisé en texte
+  createdAt DateTime @default(now())
+  causedBy  String
+}
+
+model Character {
+  id        String   @id @default(cuid())
+  gameId    String
+  kind      String   // PJ | PNJC | PNJ | MONSTRE
+  name      String
+  level     Int      @default(1)
+  hpCurrent Int      @default(10)
+  hpMax     Int      @default(10)
+  ac        Int      @default(10)
+  stats     String   // JSON sérialisé (ex: '{"str":15,"dex":12}')
+  inventory String   // JSON sérialisé (ex: '[{"itemId":"itm_...","qty":2}]')
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Encounter {
+  id          String   @id @default(cuid())
+  gameId      String
+  round       Int      @default(0)
+  turnOrder   String   // JSON sérialisé: '["pj_1","mon_a"]'
+  surprise    String?
+  state       String   @default("idle") // idle|running|ended
+  createdAt   DateTime @default(now())
+}
+
+model Quest {
+  id        String   @id @default(cuid())
+  gameId    String
+  title     String
+  status    String   @default("open") // open|active|done|failed
+  importance String  @default("med")  // low|med|high
+  reward    String?
+  notes     String?  // JSON sérialisé ou texte
+  createdAt DateTime @default(now())
+}

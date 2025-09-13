@@ -1,0 +1,11 @@
+
+node_modules
+.nuxt
+.output
+.env
+.env.*
+.DS_Store
+dev.db*
+prisma/*.db
+.vercel
+.netlify
