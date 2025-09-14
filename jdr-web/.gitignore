@@ -9,3 +9,4 @@ dev.db*
 prisma/*.db
 .vercel
 .netlify
+.cache
