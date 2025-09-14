@@ -35,6 +35,7 @@ model Encounter {
   id          String   @id @default(cuid())
   gameId      String
   round       Int      @default(0)
+  roundIndex  Int      @default(0) 
   turnOrder   String   // JSON sérialisé: '["pj_1","mon_a"]'
   surprise    String?
   state       String   @default("idle") // idle|running|ended
